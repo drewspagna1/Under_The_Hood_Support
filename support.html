@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Under The Hood</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0A0A;
+      --surface: #1C1C1E;
+      --amber: #E8960C;
+      --amber-dim: rgba(232,150,12,0.12);
+      --text: #F0F0F2;
+      --text-sec: #9999A5;
+      --border: rgba(255,255,255,0.08);
+    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Helvetica Neue', sans-serif; line-height: 1.6; }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--amber); letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--text-sec); font-size: 0.9rem; }
+
+    .container { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-sec); margin-bottom: 3rem; }
+
+    .faq-section { margin-bottom: 3rem; }
+    .faq-section h2 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
+    .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+    .faq-item h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.9rem; color: var(--text-sec); }
+
+    .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; margin-top: 3rem; }
+    .contact-box h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .contact-box p { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1.25rem; }
+    .contact-btn { display: inline-block; background: var(--amber); color: #0A0A0A; font-weight: 700; font-size: 0.9rem; padding: 0.7rem 1.5rem; border-radius: 10px; }
+    .contact-btn:hover { opacity: 0.88; text-decoration: none; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-sec); font-size: 0.825rem; }
+    footer a { color: var(--text-sec); }
+    footer a:hover { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Under The Hood</a>
+    <div class="nav-links">
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Support</h1>
+    <p class="subtitle">Get help with Under The Hood</p>
+
+    <div class="faq-section">
+      <h2>Getting started</h2>
+      <div class="faq-item">
+        <h3>How do I scan a repair quote?</h3>
+        <p>Tap "Scan a quote" on the home screen, then either take a photo of your mechanic's quote or choose one from your camera roll. Make sure the text is clearly visible and in frame. You can also type line items directly using the "Type it in" tab.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What types of quotes can the app read?</h3>
+        <p>Under The Hood works with printed quotes, handwritten estimates, digital PDFs photographed on screen, and typed text. For best results, ensure the image is well-lit and the text isn't cut off.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does the app work for OBD-II / check engine codes?</h3>
+        <p>Yes. Tap "Diagnose a problem" on the home screen and enter your OBD-II code (e.g. P0420) or describe the symptom in plain English. The app will explain what it means and what typically causes it.</p>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Pricing & purchases</h2>
+      <div class="faq-item">
+        <h3>How does pricing work?</h3>
+        <p>Under The Hood offers two options: a single-scan purchase ($2.99) or an annual unlimited subscription ($24.99/year). Each scan or subscription unlocks full access to the line-item breakdown, pricing data, and negotiation tips.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I restore a previous purchase?</h3>
+        <p>Tap "Restore purchases" on the paywall screen. Your purchase is tied to your Apple ID, so restoring will re-activate access on any device signed in with the same Apple ID.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I cancel my subscription?</h3>
+        <p>Open the Settings app on your iPhone → tap your name → Subscriptions → Under The Hood → Cancel Subscription. Alternatively, visit <a href="https://apps.apple.com/account/subscriptions" target="_blank">apple.com/account/subscriptions</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Privacy & data</h2>
+      <div class="faq-item">
+        <h3>Does the app store my repair quotes?</h3>
+        <p>Quote data is stored anonymously — we never collect your name, email, or any personally identifying information. Anonymous pricing data helps improve fair-price estimates over time. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do I need to create an account?</h3>
+        <p>No account is required. Under The Hood uses anonymous sessions so you can use the app immediately without signing up.</p>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Troubleshooting</h2>
+      <div class="faq-item">
+        <h3>The app couldn't read my quote — what should I try?</h3>
+        <p>Try retaking the photo in better lighting with the quote flat on a surface. Alternatively, use the "Type it in" tab to manually enter the line items. If the problem persists, contact us below.</p>
+      </div>
+      <div class="faq-item">
+        <h3>The price estimate seems off for my area</h3>
+        <p>Fair price ranges are estimated based on national data and improve over time as more quotes are submitted. Prices vary significantly by region, so treat the range as a guide rather than an exact figure.</p>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <h2>Still need help?</h2>
+      <p>We typically respond within one business day.</p>
+      <a class="contact-btn" href="mailto:support@underthehoodapp.com">Email support</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Under The Hood &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+
+</body>
+</html>
