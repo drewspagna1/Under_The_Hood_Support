@@ -76,11 +76,53 @@
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════════════════════════════
+         CANADA — DO NOT PUBLISH until Canada is added as an App Store
+         territory (CANADA_SUPPORT_PLAN.md Phase 5, step 21) AND a binary with
+         Phase 2/3 client support is live. Until both are true this section
+         describes availability that doesn't exist.
+         Grep for "CANADA — DO NOT PUBLISH" before pushing this repo.
+         ══════════════════════════════════════════════════════════════════════ -->
+    <div class="faq-section">
+      <h2>Canada</h2>
+      <div class="faq-item">
+        <h3>Does Under The Hood work in Canada?</h3>
+        <p>Yes. Under The Hood supports both the United States and Canada. Canadian quotes are analyzed in Canadian dollars against Canadian labour rates — not converted from US figures.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do I enter a ZIP code or a postal code?</h3>
+        <p>Whichever you have. The location field accepts a 5-digit US ZIP code or a Canadian postal code (for example <em>M5V 2T6</em>). The app works out which country you're in from the code itself — there's no country to pick.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Are prices shown in Canadian dollars?</h3>
+        <p>Yes, and they're labelled. A Canadian quote displays as <em>$1,200 CAD</em> (or <em>CA$1,200</em> where space is tight) so a dollar figure is never ambiguous. Nothing is converted at an exchange rate — Canadian quotes are compared against Canadian price data throughout.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How does the app handle GST, HST, and PST?</h3>
+        <p>Canadian repair invoices are often tax-inclusive, and the rate varies by province. The app separates tax out before judging any price, so a tax-inclusive Ontario invoice isn't unfairly flagged as overpriced. The total shown still matches the paper in your hand — the tax is identified and labelled rather than removed.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Where do the Canadian price ranges come from?</h3>
+        <p>Labour rates are derived from Government of Canada Job Bank wage data for automotive service technicians, mapped to your area using Statistics Canada geography. Parts and repair benchmarks improve over time as more Canadian quotes are submitted, the same way the US data does.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why is the "total saved" figure only counting some of my quotes?</h3>
+        <p>Totals are never mixed across currencies — adding Canadian dollars to US dollars would produce a number that isn't money. If you've scanned quotes in both countries, the running total reflects the currency of your most recent quote.</p>
+      </div>
+      <div class="faq-item">
+        <h3>The parts prices are in a different currency than my quote</h3>
+        <p>Parts comparisons come from live marketplace listings, which occasionally report in a different currency than your quote. When that happens the app says so and skips the overcharge comparison rather than comparing two currencies as if they were one.</p>
+      </div>
+    </div>
+    <!-- ═══════════════════════ END CANADA SECTION ═══════════════════════════ -->
+
     <div class="faq-section">
       <h2>Pricing & purchases</h2>
       <div class="faq-item">
         <h3>How does pricing work?</h3>
-        <p>Under The Hood offers two options: a single-scan purchase ($2.99) or an annual unlimited subscription ($19.99/year). Each scan or subscription unlocks full access to the line-item breakdown, pricing data, and negotiation tips.</p>
+        <p>Under The Hood offers two options: a single-scan purchase (<span data-price="single">$2.99</span>) or an annual unlimited subscription (<span data-price="annual">$19.99/year</span>). Each scan or subscription unlocks full access to the line-item breakdown, pricing data, and negotiation tips.</p>
+        <p id="currency-note" hidden>Prices shown in Canadian dollars are approximate. Your App Store shows the exact amount before you buy.</p>
+        <p>Prices listed here are in US dollars. Your App Store shows the amount in your local currency before you buy.</p>
       </div>
       <div class="faq-item">
         <h3>How do I restore a previous purchase?</h3>
@@ -112,7 +154,7 @@
       </div>
       <div class="faq-item">
         <h3>The price estimate seems off for my area</h3>
-        <p>Fair price ranges are estimated based on national data and improve over time as more quotes are submitted. Prices vary significantly by region, so treat the range as a guide rather than an exact figure.</p>
+        <p>Fair price ranges are estimated from regional labour-rate data and improve over time as more quotes are submitted. Prices vary significantly by area, so treat the range as a guide rather than an exact figure. Make sure the ZIP or postal code you entered is correct — that's what drives the local rate.</p>
       </div>
     </div>
 
@@ -126,6 +168,71 @@
   <footer>
     <p>© 2026 Under The Hood &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a></p>
   </footer>
+
+<script>
+/*
+ * Shows Canadian visitors the CAD price instead of USD.
+ *
+ * The page ships with the USD figures in the HTML, so anyone without
+ * JavaScript — and every crawler — reads correct default content. This only
+ * swaps them for visitors we can identify as Canadian.
+ *
+ * ── FILL THESE IN BEFORE THIS DOES ANYTHING ────────────────────────────────
+ * Leave them empty and the script is a deliberate no-op: an absent price is
+ * merely unhelpful, a wrong one on the support page Apple links from a live
+ * listing is a real problem. Get the exact figures from App Store Connect
+ * (My Apps → Under The Hood → Pricing) AFTER adding Canada as a territory —
+ * Apple generates the CAD amount from the USD price tier, and that generated
+ * value is authoritative, not anything computed from a spot exchange rate.
+ *
+ * Apple re-tiers periodically for FX. If these drift from what the store
+ * charges, empty them out rather than leaving a stale number on this page.
+ */
+var CAD_PRICES = {
+  single: '',   // e.g. '$3.99 CAD'
+  annual: ''    // e.g. '$27.99 CAD/year'
+};
+
+(function () {
+  // Timezone is the most reliable region signal available client-side.
+  // navigator.language is not — plenty of Canadians run en-US. No network
+  // call, no IP lookup, nothing to store, so nothing privacy-sensitive here.
+  var CANADIAN_ZONES = [
+    'America/St_Johns', 'America/Goose_Bay', 'America/Halifax', 'America/Glace_Bay',
+    'America/Moncton', 'America/Blanc-Sablon', 'America/Toronto', 'America/Nipigon',
+    'America/Thunder_Bay', 'America/Iqaluit', 'America/Pangnirtung', 'America/Atikokan',
+    'America/Winnipeg', 'America/Rainy_River', 'America/Resolute', 'America/Rankin_Inlet',
+    'America/Regina', 'America/Swift_Current', 'America/Edmonton', 'America/Cambridge_Bay',
+    'America/Yellowknife', 'America/Inuvik', 'America/Creston', 'America/Dawson_Creek',
+    'America/Fort_Nelson', 'America/Whitehorse', 'America/Dawson', 'America/Vancouver'
+  ];
+
+  function inCanada() {
+    try {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      return CANADIAN_ZONES.indexOf(tz) !== -1;
+    } catch (e) {
+      return false; // Old browser — leave the USD default alone.
+    }
+  }
+
+  if (!inCanada()) return;
+  if (!CAD_PRICES.single || !CAD_PRICES.annual) return;
+
+  var swapped = false;
+  document.querySelectorAll('[data-price]').forEach(function (el) {
+    var value = CAD_PRICES[el.getAttribute('data-price')];
+    if (!value) return;
+    el.textContent = value;
+    swapped = true;
+  });
+
+  if (swapped) {
+    var note = document.getElementById('currency-note');
+    if (note) note.hidden = false;
+  }
+})();
+</script>
 
 </body>
 </html>
