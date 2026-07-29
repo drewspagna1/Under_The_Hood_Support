@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Under The Hood</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -20,7 +22,8 @@
     a:hover { text-decoration: underline; }
 
     nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); }
-    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--amber); letter-spacing: -0.3px; }
+    .nav-logo { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 1.1rem; font-weight: 700; color: var(--amber); letter-spacing: -0.3px; }
+    .nav-logo img { width: 30px; height: 30px; border-radius: 7px; display: block; flex-shrink: 0; }
     .nav-links { display: flex; gap: 2rem; }
     .nav-links a { color: var(--text-sec); font-size: 0.9rem; }
 
@@ -44,7 +47,7 @@
 <body>
 
   <nav>
-    <a class="nav-logo" href="index.html">Under The Hood</a>
+    <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="Under The Hood app icon" width="30" height="30">Under The Hood</a>
     <div class="nav-links">
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy</a>
@@ -82,10 +85,8 @@
       <li><strong>RevenueCat</strong> — in-app purchase management. RevenueCat's <a href="https://www.revenuecat.com/privacy" target="_blank">Privacy Policy</a> applies.</li>
     </ul>
 
-    <!-- CANADA — DO NOT PUBLISH until Canada is an App Store territory. See CANADA_SUPPORT_PLAN.md Phase 5. -->
     <h2>Where data is processed</h2>
     <p>Under The Hood's processing and storage providers are located in the United States. If you use the app from Canada or elsewhere outside the United States, the content you submit is transferred to and processed in the United States, where it may be accessible to courts, law enforcement, and national security authorities under that country's laws. Because submissions contain no personal identifiers, this transfer does not involve personal information that identifies you.</p>
-    <!-- END CANADA -->
 
     <h2>Data retention</h2>
     <p>Submitted quote data is retained anonymously to improve pricing accuracy over time. Because no personal identifiers are stored, we have no way to locate or delete a specific user's submissions. Contact us at <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a> with any questions.</p>
