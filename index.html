@@ -4,264 +4,368 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Under The Hood — Know if your mechanic is being straight with you</title>
+  <meta name="description" content="Photograph any repair quote and get an instant plain-English breakdown: what each item means, whether it's urgent, and whether the price is fair for your area.">
+  <meta name="theme-color" content="#08080A">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
   <meta property="og:title" content="Under The Hood — Know if your mechanic is being straight with you">
-  <meta property="og:description" content="Photograph any repair quote and get an instant plain-English breakdown — what each item means, whether it's urgent, and whether the price is fair.">
+  <meta property="og:description" content="Photograph any repair quote and get an instant plain-English breakdown: what each item means, whether it's urgent, and whether the price is fair.">
   <meta property="og:image" content="https://drewspagna1.github.io/Under_The_Hood_Support/assets/icon-512.png">
   <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0A0A0A;
-      --surface: #1C1C1E;
-      --surface-hi: #232326;
-      --amber: #E8960C;
-      --amber-dim: rgba(232,150,12,0.12);
-      --text: #F0F0F2;
-      --text-sec: #9999A5;
-      --border: rgba(255,255,255,0.08);
-      --border-hi: rgba(255,255,255,0.16);
-      --fair: #97C459;
-      --overpriced: #F09595;
+    /* ---- Page-specific: landing ---- */
+    .hero {
+      position: relative;
+      padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(3rem, 7vw, 5rem);
+      overflow: hidden;
     }
-    html { scroll-behavior: smooth; }
-    body {
-      background:
-        radial-gradient(1100px 520px at 50% -8%, rgba(232,150,12,0.09), transparent 60%),
-        var(--bg);
-      color: var(--text);
-      font-family: -apple-system, 'Helvetica Neue', sans-serif;
-      line-height: 1.6;
+    .hero::before {
+      content: ''; position: absolute; inset: -30% -10% auto; height: 90%;
+      background: radial-gradient(50% 55% at 50% 0%, rgba(232,150,12,0.16), transparent 70%);
+      pointer-events: none;
     }
-    a { color: var(--amber); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* Nav */
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 2rem;
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 10;
-      background: rgba(10,10,10,0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .hero-grid {
+      position: relative;
+      display: grid; grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(2rem, 6vw, 4.5rem); align-items: center;
     }
-    .nav-logo { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 1.1rem; font-weight: 700; color: var(--amber); letter-spacing: -0.3px; }
-    .nav-logo img { width: 30px; height: 30px; border-radius: 7px; display: block; flex-shrink: 0; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--text-sec); font-size: 0.9rem; text-decoration: none; transition: color 0.15s; }
-    .nav-links a:hover { color: var(--text); text-decoration: none; }
-
-    /* Hero */
-    .hero { text-align: center; padding: 6rem 2rem 4.5rem; max-width: 700px; margin: 0 auto; }
-    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 1.25rem; }
-    .hero h1 span { color: var(--amber); }
-    .hero p { font-size: 1.1rem; color: var(--text-sec); margin-bottom: 2.25rem; }
-
-    /* App Store badge */
-    .store-badge-link { display: inline-block; border-radius: 10px; transition: transform 0.15s ease, opacity 0.15s ease; }
-    .store-badge-link:hover { transform: translateY(-2px); opacity: 0.88; text-decoration: none; }
-    .store-badge-link:active { transform: translateY(0); }
-    .store-badge-link svg { display: block; height: 48px; width: auto; }
-
-    /* Features */
-    .features { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-    .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      opacity: 0; transform: translateY(14px);
-      animation: rise 0.5s ease forwards;
-      animation-play-state: paused;
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border-hi); border-radius: 999px;
+      padding: 0.35rem 0.85rem; margin-bottom: 1.5rem;
+      font-size: 0.78rem; font-weight: 500; color: var(--text-sec);
     }
-    .feature-card.in-view { animation-play-state: running; }
-    .feature-card:hover { transform: translateY(-3px); border-color: var(--border-hi); background: var(--surface-hi); }
-    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-    .feature-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .feature-card p { font-size: 0.875rem; color: var(--text-sec); line-height: 1.6; }
-
-    /* How it works */
-    .how { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 5rem; text-align: center; }
-    .how h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 3rem; }
-    .steps { display: flex; flex-direction: column; gap: 1.5rem; text-align: left; }
-    .step { display: flex; gap: 1.25rem; align-items: flex-start; }
-    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--amber-dim); color: var(--amber); font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-    .step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
-    .step p { font-size: 0.875rem; color: var(--text-sec); }
-
-    /* CTA footer band */
-    .cta-band {
-      max-width: 640px; margin: 0 auto; padding: 0 2rem 5rem;
-      text-align: center;
+    .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fair); }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+      font-weight: 700; margin-bottom: 1.15rem;
     }
-    .cta-band p { color: var(--text-sec); font-size: 0.95rem; margin-bottom: 1.5rem; }
-
-    /* Footer */
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-sec); font-size: 0.825rem; }
-    footer a { color: var(--text-sec); }
-    footer a:hover { color: var(--amber); }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .feature-card { animation: none; opacity: 1; transform: none; }
+    .hero h1 em { font-style: normal; color: var(--amber); }
+    .hero-lede { color: var(--text-sec); font-size: clamp(1rem, 1.6vw, 1.125rem); max-width: 48ch; margin-bottom: 2rem; }
+    .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .hero-note { color: var(--text-ter); font-size: 0.825rem; margin-top: 1.5rem; }
+    .hero-art { justify-self: center; max-width: 340px; width: 100%; }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-lede { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-art { max-width: 290px; order: 2; }
     }
+
+    /* feature grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: 1.15rem; }
+
+    /* screenshot showcase */
+    .shots {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 4vw, 3rem); margin-top: 3.5rem;
+    }
+    .shot { text-align: center; }
+    .shot .device { max-width: 260px; margin: 0 auto 1.4rem; }
+    .shot h3 { font-size: 1rem; margin-bottom: 0.35rem; }
+    .shot p { font-size: 0.875rem; color: var(--text-sec); max-width: 32ch; margin-inline: auto; }
+    @media (max-width: 800px) { .shots { grid-template-columns: 1fr; } .shot .device { max-width: 240px; } }
+
+    /* compact "also checks" list */
+    .also {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.4rem 2.5rem; margin-top: 2.5rem;
+    }
+    .also-item {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      padding: 0.95rem 0; border-bottom: 1px solid var(--border);
+    }
+    .also-item svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 0.28rem; stroke: var(--amber); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .also-item h4 { font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .also-item p { font-size: 0.875rem; color: var(--text-sec); }
+
+    /* steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 3vw, 2.25rem); margin-top: 3rem; counter-reset: step; }
+    .step { position: relative; padding-top: 3.25rem; }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; top: 0; left: 0;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--amber-dim); color: var(--amber);
+      font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;
+      display: grid; place-items: center;
+    }
+    .step h3 { font-size: 1.0625rem; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.9rem; color: var(--text-sec); }
+    @media (max-width: 720px) { .steps { grid-template-columns: 1fr; } }
+
+    /* closing CTA */
+    .cta {
+      background: linear-gradient(165deg, var(--surface-2), var(--surface));
+      border: 1px solid var(--border-hi); border-radius: var(--r-xl);
+      padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta::before {
+      content: ''; position: absolute; inset: auto -20% -60% ; height: 140%;
+      background: radial-gradient(closest-side, rgba(232,150,12,0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .cta > * { position: relative; }
+    .cta h2 { font-size: clamp(1.7rem, 3.6vw, 2.4rem); margin-bottom: 0.85rem; }
+    .cta p { color: var(--text-sec); margin: 0 auto 2rem; max-width: 46ch; }
   </style>
 </head>
 <body>
 
-  <nav>
-    <span class="nav-logo"><img src="assets/icon-180.png" alt="Under The Hood app icon" width="30" height="30">Under The Hood</span>
-    <div class="nav-links">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/icon-180.png" alt="" width="30" height="30">Under The Hood
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
       <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-    </div>
-  </nav>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
 
+<main id="main">
+
+  <!-- ================= HERO ================= -->
   <section class="hero">
-    <h1>Know if your mechanic is being <span>straight with you</span></h1>
-    <p>Photograph any repair quote and get an instant plain-English breakdown — what each item means, whether it's urgent, and whether the price is fair. Now also reads dashboard warning lights, tire tread, and worn parts.</p>
-    <!-- Locale-less form: Apple redirects each visitor to their own regional
-         store. Do not hardcode /us/ — a Canadian visitor hitting the US store
-         page gets "not available in your country" once Canada is a territory. -->
-    <a class="store-badge-link" href="https://apps.apple.com/app/id6781524500" target="_blank" aria-label="Download Under The Hood on the App Store">
-      <svg viewBox="0 0 170 50" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-        <rect x="0.5" y="0.5" width="169" height="49" rx="9" fill="#0A0A0A" stroke="#4d4d4f"/>
-        <g fill="#F0F0F2">
-          <path d="M35.5 25.6c-.03-3.2 2.6-4.75 2.72-4.82-1.48-2.17-3.79-2.47-4.6-2.5-1.96-.2-3.84 1.15-4.83 1.15-1.02 0-2.54-1.13-4.19-1.1-2.13.03-4.1 1.25-5.2 3.15-2.24 3.9-.57 9.62 1.6 12.77 1.07 1.54 2.34 3.26 4 3.2 1.61-.07 2.21-1.03 4.16-1.03 1.93 0 2.49 1.03 4.18 1 1.74-.03 2.83-1.55 3.87-3.1 1.24-1.77 1.74-3.5 1.76-3.6-.04-.02-3.37-1.3-3.4-5.12Z"/>
-          <path d="M32.6 16.4c.87-1.06 1.46-2.5 1.3-3.96-1.26.05-2.83.87-3.74 1.9-.8.9-1.52 2.4-1.33 3.8 1.38.1 2.8-.7 3.77-1.74Z"/>
-        </g>
-        <text x="45" y="20.5" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="8.3" fill="#d0d0d3">Download on the</text>
-        <text x="45" y="35" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="15.5" font-weight="600" fill="#F0F0F2" letter-spacing="-0.2">App Store</text>
-      </svg>
-    </a>
-  </section>
-
-  <section class="features">
-    <div class="feature-card">
-      <div class="feature-icon">🧾</div>
-      <h3>Instant line-item breakdown</h3>
-      <p>Every repair explained in plain English — no jargon, no guesswork.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💰</div>
-      <h3>Fair price range</h3>
-      <p>See what each repair should actually cost in your area before you agree to anything.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🇺🇸🇨🇦</div>
-      <h3>US and Canada</h3>
-      <p>ZIP or postal code, USD or CAD, GST and HST handled — Canadian quotes are priced against Canadian data, not converted.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚠️</div>
-      <h3>Urgency rating</h3>
-      <p>Find out what needs fixing now and what can wait — so you're never pressured into unnecessary work.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💬</div>
-      <h3>Negotiation tips</h3>
-      <p>Exact phrases to use at the counter to push back on overpriced items.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔧</div>
-      <h3>Check engine codes</h3>
-      <p>Paste any OBD-II code and get a clear explanation of what's actually wrong.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🚨</div>
-      <h3>Dashboard warning lights</h3>
-      <p>Photograph your instrument cluster and get a plain-English read on what the light means and how urgent it is — before you even have a quote.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🛞</div>
-      <h3>Tire wear check</h3>
-      <p>Photograph your tread and find out if it's normal wear, or a sign of an inflation or alignment problem.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔩</div>
-      <h3>Worn part check</h3>
-      <p>Belts, hoses, brake pads, battery terminals — photograph the part a mechanic flagged and see for yourself before you agree to the work.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📄</div>
-      <h3>Shareable PDF summary</h3>
-      <p>Turn any result into a clean one-page summary you can send to a spouse or friend for a second opinion.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Under 60 seconds</h3>
-      <p>Fast enough to use in the waiting room before you sign anything.</p>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-tag"><span class="dot"></span> Available on iPhone in the US and Canada</span>
+        <h1>Know if your mechanic is <em>being straight with you</em></h1>
+        <p class="hero-lede">
+          Photograph any repair quote and get an instant plain-English breakdown: what each
+          line item means, whether it is urgent, and whether the price is fair for your area.
+        </p>
+        <div class="hero-actions">
+          <!-- Locale-less link: Apple redirects each visitor to their own regional store.
+               Do not hardcode /us/, a Canadian visitor would get "not available in your country". -->
+          <a class="store-badge" href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">
+            <img src="assets/app-store-badge.svg" alt="Download Under The Hood on the App Store" width="170" height="52">
+          </a>
+          <a class="btn btn-ghost" href="#how">See how it works</a>
+        </div>
+        <p class="hero-note">No account needed. Your quote data stays anonymous.</p>
+      </div>
+      <div class="hero-art device">
+        <img src="assets/shot-results.png"
+             alt="Under The Hood showing a $700 sensor replacement rated as a fair price, with an explanation, a fair price range, and negotiation tips"
+             width="620" height="1331" fetchpriority="high">
+      </div>
     </div>
   </section>
 
-  <section class="how">
-    <h2>How it works</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
-          <h4>Photograph or upload your quote</h4>
-          <p>Take a photo of the repair estimate or type the line items directly into the app.</p>
-        </div>
+  <!-- ================= CORE FEATURES ================= -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:3rem">
+        <p class="eyebrow">What you get</p>
+        <h2 class="section-title">A second opinion, before you sign</h2>
+        <p class="lede">Every quote comes back broken into four things you can actually act on.</p>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
-          <h4>AI reads every line item</h4>
-          <p>Our AI breaks down each repair, looks up fair prices, and flags anything suspicious.</p>
-        </div>
+
+      <div class="grid-3">
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 3h16v18l-2.5-1.6L15 21l-3-1.8L9 21l-2.5-1.6L4 21Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          </div>
+          <h3>Every line item, in plain English</h3>
+          <p>No jargon and no guesswork. Each repair explained the way a friend who knows cars would explain it.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 6.5c0-2-2.2-3-5-3s-5 .9-5 3 2 2.8 5 3.5 5 1.5 5 3.5-2.2 3-5 3-5-1-5-3"/></svg>
+          </div>
+          <h3>Fair price range for your area</h3>
+          <p>See the low, average, and high a repair should run near you before you agree to anything.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          </div>
+          <h3>Urgency rating on each repair</h3>
+          <p>Find out what needs fixing now and what can wait, so you are never pressured into work you do not need yet.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-4.1-.9L3 21l1.9-4.6A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4Z"/></svg>
+          </div>
+          <h3>Exact words to use at the counter</h3>
+          <p>Specific phrases for pushing back on an overpriced item, so you are not improvising in front of a service advisor.</p>
+        </article>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <h4>Get your full breakdown</h4>
-          <p>Plain-English explanations, urgency levels, fair price ranges, and negotiation tips — all in seconds.</p>
+    </div>
+  </section>
+
+  <!-- ================= SCREENSHOTS ================= -->
+  <section class="section" style="background:var(--bg-soft);border-block:1px solid var(--border)">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">Inside the app</p>
+        <h2 class="section-title">Built for a waiting room, not a workshop</h2>
+        <p class="lede">Three taps from the parking lot to an answer you can act on.</p>
+      </div>
+
+      <div class="shots">
+        <div class="shot reveal">
+          <div class="device"><img src="assets/shot-home.png" alt="The Under The Hood home screen with Scan a quote and Diagnose a problem buttons" width="620" height="1331" loading="lazy"></div>
+          <h3>Start anywhere</h3>
+          <p>Scan a quote, check a warning light, a tire, or a single part.</p>
+        </div>
+        <div class="shot reveal">
+          <div class="device"><img src="assets/shot-scan.png" alt="The scan screen, with a photo tab, a type-it-in tab, and fields for vehicle and location" width="620" height="1331" loading="lazy"></div>
+          <h3>Snap or type it</h3>
+          <p>Photograph the estimate or key the line items in by hand.</p>
+        </div>
+        <div class="shot reveal">
+          <div class="device"><img src="assets/shot-diagnose.png" alt="The diagnose screen, where you can enter an OBD-II code or describe a symptom" width="620" height="1331" loading="lazy"></div>
+          <h3>Or start from a symptom</h3>
+          <p>Enter an OBD-II code or just describe the noise it is making.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta-band">
-    <p>Free to download. Know before you sign.</p>
-    <a class="store-badge-link" href="https://apps.apple.com/app/id6781524500" target="_blank" aria-label="Download Under The Hood on the App Store">
-      <svg viewBox="0 0 170 50" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-        <rect x="0.5" y="0.5" width="169" height="49" rx="9" fill="#0A0A0A" stroke="#4d4d4f"/>
-        <g fill="#F0F0F2">
-          <path d="M35.5 25.6c-.03-3.2 2.6-4.75 2.72-4.82-1.48-2.17-3.79-2.47-4.6-2.5-1.96-.2-3.84 1.15-4.83 1.15-1.02 0-2.54-1.13-4.19-1.1-2.13.03-4.1 1.25-5.2 3.15-2.24 3.9-.57 9.62 1.6 12.77 1.07 1.54 2.34 3.26 4 3.2 1.61-.07 2.21-1.03 4.16-1.03 1.93 0 2.49 1.03 4.18 1 1.74-.03 2.83-1.55 3.87-3.1 1.24-1.77 1.74-3.5 1.76-3.6-.04-.02-3.37-1.3-3.4-5.12Z"/>
-          <path d="M32.6 16.4c.87-1.06 1.46-2.5 1.3-3.96-1.26.05-2.83.87-3.74 1.9-.8.9-1.52 2.4-1.33 3.8 1.38.1 2.8-.7 3.77-1.74Z"/>
-        </g>
-        <text x="45" y="20.5" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="8.3" fill="#d0d0d3">Download on the</text>
-        <text x="45" y="35" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="15.5" font-weight="600" fill="#F0F0F2" letter-spacing="-0.2">App Store</text>
-      </svg>
-    </a>
+  <!-- ================= SECONDARY FEATURES ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">Also included</p>
+        <h2 class="section-title">More than just quotes</h2>
+      </div>
+
+      <div class="also">
+        <div class="also-item">
+          <svg viewBox="0 0 24 24"><path d="M4 17a8 8 0 0 1 16 0"/><path d="M12 17V9"/><path d="M3 21h18"/></svg>
+          <div><h4>Dashboard warning lights</h4><p>Photograph the instrument cluster and get a plain read on what the light means and how urgent it is, before you even have a quote.</p></div>
+        </div>
+        <div class="also-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21"/></svg>
+          <div><h4>Tire wear check</h4><p>Photograph the tread and find out if it is normal wear or a sign of an inflation or alignment problem.</p></div>
+        </div>
+        <div class="also-item">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 10a6 6 0 0 1-8.5 5.9L6.4 22a2.1 2.1 0 0 1-3-3l6.1-6.1A6 6 0 0 1 15.4 4.4Z"/></svg>
+          <div><h4>Worn part check</h4><p>Belts, hoses, brake pads, battery terminals. Photograph the part a mechanic flagged and see the condition for yourself.</p></div>
+        </div>
+        <div class="also-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4a2 2 0 0 1 2-2h7l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M13 2v5h5"/><path d="M8 13h8M8 17h5"/></svg>
+          <div><h4>Shareable PDF summary</h4><p>Turn any result into a clean one-page summary you can send to a spouse or a friend for a second opinion.</p></div>
+        </div>
+        <div class="also-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
+          <div><h4>US and Canada</h4><p>ZIP or postal code, USD or CAD, GST and HST handled. Canadian quotes are priced against Canadian data, never converted.</p></div>
+        </div>
+        <div class="also-item">
+          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></svg>
+          <div><h4>Answers in under 60 seconds</h4><p>Fast enough to use in the waiting room, while you still have the option to say no.</p></div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <p>© 2026 Under The Hood &nbsp;·&nbsp; <a href="support.html">Support</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a></p>
-  </footer>
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section" id="how" style="background:var(--bg-soft);border-block:1px solid var(--border)">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">How it works</p>
+        <h2 class="section-title">Three steps, one minute</h2>
+      </div>
 
-  <script>
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.feature-card').forEach(function (el) { el.classList.add('in-view'); });
-    } else if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry, i) {
-          if (entry.isIntersecting) {
-            setTimeout(function () { entry.target.classList.add('in-view'); }, i * 40);
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      document.querySelectorAll('.feature-card').forEach(function (el) { io.observe(el); });
-    } else {
-      document.querySelectorAll('.feature-card').forEach(function (el) { el.classList.add('in-view'); });
+      <div class="steps">
+        <div class="step reveal">
+          <h3>Photograph or type your quote</h3>
+          <p>Take a photo of the repair estimate, or type the line items straight into the app. Printed, handwritten, or on a screen all work.</p>
+        </div>
+        <div class="step reveal">
+          <h3>The app reads every line</h3>
+          <p>Each repair is broken down, checked against fair prices for your area, and anything that looks off gets flagged.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Get your full breakdown</h3>
+          <p>Plain-English explanations, urgency levels, fair price ranges, and negotiation tips, all in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta">
+        <h2>Know before you sign</h2>
+        <p>Download Under The Hood and walk into your next repair knowing what the work is worth.</p>
+        <a class="store-badge" href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">
+          <img src="assets/app-store-badge.svg" alt="Download Under The Hood on the App Store" width="170" height="52" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="" width="30" height="30">Under The Hood</a>
+      <p>A plain-English second opinion on any mechanic's repair quote.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">App Store</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>&copy; 2026 Under The Hood. All rights reserved.</span>
+    <span>Not affiliated with any repair shop, dealership, or parts retailer.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
     }
-  </script>
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var sibs = Array.prototype.slice.call(entry.target.parentNode.children);
+        entry.target.style.transitionDelay = (sibs.indexOf(entry.target) * 70) + 'ms';
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 
 </body>
 </html>

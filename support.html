@@ -4,192 +4,262 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Support — Under The Hood</title>
+  <meta name="description" content="Help with Under The Hood: scanning quotes, Canadian pricing, subscriptions, privacy, and troubleshooting.">
+  <meta name="theme-color" content="#08080A">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0A0A0A;
-      --surface: #1C1C1E;
-      --amber: #E8960C;
-      --amber-dim: rgba(232,150,12,0.12);
-      --text: #F0F0F2;
-      --text-sec: #9999A5;
-      --border: rgba(255,255,255,0.08);
-    }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Helvetica Neue', sans-serif; line-height: 1.6; }
-    a { color: var(--amber); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); }
-    .nav-logo { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 1.1rem; font-weight: 700; color: var(--amber); letter-spacing: -0.3px; }
-    .nav-logo img { width: 30px; height: 30px; border-radius: 7px; display: block; flex-shrink: 0; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--text-sec); font-size: 0.9rem; }
-
-    .container { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
-    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .subtitle { color: var(--text-sec); margin-bottom: 3rem; }
-
-    .faq-section { margin-bottom: 3rem; }
-    .faq-section h2 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
-    .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
-    .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-item h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .faq-item p { font-size: 0.9rem; color: var(--text-sec); }
-
-    .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; margin-top: 3rem; }
-    .contact-box h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .contact-box p { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1.25rem; }
-    .contact-btn { display: inline-block; background: var(--amber); color: #0A0A0A; font-weight: 700; font-size: 0.9rem; padding: 0.7rem 1.5rem; border-radius: 10px; }
-    .contact-btn:hover { opacity: 0.88; text-decoration: none; }
-
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-sec); font-size: 0.825rem; }
-    footer a { color: var(--text-sec); }
-    footer a:hover { color: var(--amber); }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-  <nav>
-    <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="Under The Hood app icon" width="30" height="30">Under The Hood</a>
-    <div class="nav-links">
-      <a href="support.html">Support</a>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="" width="30" height="30">Under The Hood</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="support.html" aria-current="page">Support</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
-    </div>
-  </nav>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
 
-  <div class="container">
-    <h1>Support</h1>
-    <p class="subtitle">Get help with Under The Hood</p>
-
-    <div class="faq-section">
-      <h2>Getting started</h2>
-      <div class="faq-item">
-        <h3>How do I scan a repair quote?</h3>
-        <p>Tap "Scan a quote" on the home screen, then either take a photo of your mechanic's quote or choose one from your camera roll. Make sure the text is clearly visible and in frame. You can also type line items directly using the "Type it in" tab.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What types of quotes can the app read?</h3>
-        <p>Under The Hood works with printed quotes, handwritten estimates, digital PDFs photographed on screen, and typed text. For best results, ensure the image is well-lit and the text isn't cut off.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Does the app work for OBD-II / check engine codes?</h3>
-        <p>Yes. Tap "Diagnose a problem" on the home screen and enter your OBD-II code (e.g. P0420) or describe the symptom in plain English. The app will explain what it means and what typically causes it.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Can I scan things besides a repair quote?</h3>
-        <p>Yes. From the home screen you can also photograph your dashboard to get a plain-English read on a warning light, photograph a tire to check tread wear, or photograph a specific part — like a belt, hose, brake pad, or battery terminal — to see its condition for yourself before agreeing to a repair.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Can I share my results with someone else?</h3>
-        <p>Yes. On any results screen, tap "Share PDF" to generate a clean one-page summary you can send to a spouse, parent, or friend for a second opinion.</p>
-      </div>
+<main id="main">
+  <div class="prose">
+    <div class="doc-header">
+      <h1>Support</h1>
+      <p class="subtitle">Answers to the questions we get most. If yours is not here, email us and we will help.</p>
     </div>
 
-    <!-- Canada live since v1.0.1 (2026-07-29); CA storefront confirmed at
-         apps.apple.com/ca/app/under-the-hood/id6781524500 -->
-    <div class="faq-section">
-      <h2>Canada</h2>
-      <div class="faq-item">
-        <h3>Does Under The Hood work in Canada?</h3>
-        <p>Yes. Under The Hood supports both the United States and Canada. Canadian quotes are analyzed in Canadian dollars against Canadian labour rates — not converted from US figures.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do I enter a ZIP code or a postal code?</h3>
-        <p>Whichever you have. The location field accepts a 5-digit US ZIP code or a Canadian postal code (for example <em>M5V 2T6</em>). The app works out which country you're in from the code itself — there's no country to pick.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Are prices shown in Canadian dollars?</h3>
-        <p>Yes, and they're labelled. A Canadian quote displays as <em>$1,200 CAD</em> (or <em>CA$1,200</em> where space is tight) so a dollar figure is never ambiguous. Nothing is converted at an exchange rate — Canadian quotes are compared against Canadian price data throughout.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How does the app handle GST, HST, and PST?</h3>
-        <p>Canadian repair invoices are often tax-inclusive, and the rate varies by province. The app separates tax out before judging any price, so a tax-inclusive Ontario invoice isn't unfairly flagged as overpriced. The total shown still matches the paper in your hand — the tax is identified and labelled rather than removed.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Where do the Canadian price ranges come from?</h3>
-        <p>Labour rates are derived from Government of Canada Job Bank wage data for automotive service technicians, mapped to your area using Statistics Canada geography. Parts and repair benchmarks improve over time as more Canadian quotes are submitted, the same way the US data does.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Why is the "total saved" figure only counting some of my quotes?</h3>
-        <p>Totals are never mixed across currencies — adding Canadian dollars to US dollars would produce a number that isn't money. If you've scanned quotes in both countries, the running total reflects the currency of your most recent quote.</p>
-      </div>
-      <div class="faq-item">
-        <h3>The parts prices are in a different currency than my quote</h3>
-        <p>Parts comparisons come from live marketplace listings, which occasionally report in a different currency than your quote. When that happens the app says so and skips the overcharge comparison rather than comparing two currencies as if they were one.</p>
-      </div>
-    </div>
+    <div class="doc-body">
+      <nav class="faq-nav" aria-label="Jump to a topic">
+        <a href="#getting-started">Getting started</a>
+        <a href="#canada">Canada</a>
+        <a href="#pricing">Pricing &amp; purchases</a>
+        <a href="#privacy">Privacy &amp; data</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </nav>
 
-    <div class="faq-section">
-      <h2>Pricing & purchases</h2>
-      <div class="faq-item">
-        <h3>How does pricing work?</h3>
-        <p>Under The Hood offers two options: a single-scan purchase (<span data-price="single">$2.99</span>) or an annual unlimited subscription (<span data-price="annual">$19.99/year</span>). Each scan or subscription unlocks full access to the line-item breakdown, pricing data, and negotiation tips.</p>
-        <p id="currency-note" hidden>Prices shown in Canadian dollars are approximate. Your App Store shows the exact amount before you buy.</p>
-        <p>Prices listed here are in US dollars. Your App Store shows the amount in your local currency before you buy.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How do I restore a previous purchase?</h3>
-        <p>Tap "Restore purchases" on the paywall screen. Your purchase is tied to your Apple ID, so restoring will re-activate access on any device signed in with the same Apple ID.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How do I cancel my subscription?</h3>
-        <p>Open the Settings app on your iPhone → tap your name → Subscriptions → Under The Hood → Cancel Subscription. Alternatively, visit <a href="https://apps.apple.com/account/subscriptions" target="_blank">apple.com/account/subscriptions</a>.</p>
-      </div>
-    </div>
+      <!-- ============ GETTING STARTED ============ -->
+      <section class="faq-group" id="getting-started">
+        <h2>Getting started</h2>
 
-    <div class="faq-section">
-      <h2>Privacy & data</h2>
-      <div class="faq-item">
-        <h3>Does the app store my repair quotes?</h3>
-        <p>Quote data is stored anonymously — we never collect your name, email, or any personally identifying information. Anonymous pricing data helps improve fair-price estimates over time. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do I need to create an account?</h3>
-        <p>No account is required. Under The Hood uses anonymous sessions so you can use the app immediately without signing up.</p>
-      </div>
-    </div>
+        <details class="faq-item" open>
+          <summary>How do I scan a repair quote?</summary>
+          <div class="faq-answer">
+            <p>Tap "Scan a quote" on the home screen, then either take a photo of your mechanic's quote or choose one from your camera roll. Make sure the text is clearly visible and in frame. You can also type line items directly using the "Type it in" tab.</p>
+          </div>
+        </details>
 
-    <div class="faq-section">
-      <h2>Troubleshooting</h2>
-      <div class="faq-item">
-        <h3>The app couldn't read my quote — what should I try?</h3>
-        <p>Try retaking the photo in better lighting with the quote flat on a surface. Alternatively, use the "Type it in" tab to manually enter the line items. If the problem persists, contact us below.</p>
-      </div>
-      <div class="faq-item">
-        <h3>The price estimate seems off for my area</h3>
-        <p>Fair price ranges are estimated from regional labour-rate data and improve over time as more quotes are submitted. Prices vary significantly by area, so treat the range as a guide rather than an exact figure. Make sure the ZIP or postal code you entered is correct — that's what drives the local rate.</p>
-      </div>
-    </div>
+        <details class="faq-item">
+          <summary>What types of quotes can the app read?</summary>
+          <div class="faq-answer">
+            <p>Under The Hood works with printed quotes, handwritten estimates, digital PDFs photographed on screen, and typed text. For best results, ensure the image is well-lit and the text is not cut off.</p>
+          </div>
+        </details>
 
-    <div class="contact-box">
-      <h2>Still need help?</h2>
-      <p>We typically respond within one business day.</p>
-      <a class="contact-btn" href="mailto:drew.spagna@gmail.com">Email support</a>
+        <details class="faq-item">
+          <summary>Does the app work for OBD-II / check engine codes?</summary>
+          <div class="faq-answer">
+            <p>Yes. Tap "Diagnose a problem" on the home screen and enter your OBD-II code (e.g. P0420) or describe the symptom in plain English. The app will explain what it means and what typically causes it.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I scan things besides a repair quote?</summary>
+          <div class="faq-answer">
+            <p>Yes. From the home screen you can also photograph your dashboard to get a plain-English read on a warning light, photograph a tire to check tread wear, or photograph a specific part (a belt, hose, brake pad, or battery terminal) to see its condition for yourself before agreeing to a repair.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I share my results with someone else?</summary>
+          <div class="faq-answer">
+            <p>Yes. On any results screen, tap "Share PDF" to generate a clean one-page summary you can send to a spouse, parent, or friend for a second opinion.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ CANADA ============ -->
+      <!-- Canada live since v1.0.1 (2026-07-29); CA storefront confirmed at
+           apps.apple.com/ca/app/under-the-hood/id6781524500 -->
+      <section class="faq-group" id="canada">
+        <h2>Canada</h2>
+
+        <details class="faq-item">
+          <summary>Does Under The Hood work in Canada?</summary>
+          <div class="faq-answer">
+            <p>Yes. Under The Hood supports both the United States and Canada. Canadian quotes are analyzed in Canadian dollars against Canadian labour rates, not converted from US figures.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do I enter a ZIP code or a postal code?</summary>
+          <div class="faq-answer">
+            <p>Whichever you have. The location field accepts a 5-digit US ZIP code or a Canadian postal code (for example <em>M5V 2T6</em>). The app works out which country you are in from the code itself, so there is no country to pick.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Are prices shown in Canadian dollars?</summary>
+          <div class="faq-answer">
+            <p>Yes, and they are labelled. A Canadian quote displays as <em>$1,200 CAD</em> (or <em>CA$1,200</em> where space is tight) so a dollar figure is never ambiguous. Nothing is converted at an exchange rate. Canadian quotes are compared against Canadian price data throughout.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does the app handle GST, HST, and PST?</summary>
+          <div class="faq-answer">
+            <p>Canadian repair invoices are often tax-inclusive, and the rate varies by province. The app separates tax out before judging any price, so a tax-inclusive Ontario invoice is not unfairly flagged as overpriced. The total shown still matches the paper in your hand: the tax is identified and labelled rather than removed.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where do the Canadian price ranges come from?</summary>
+          <div class="faq-answer">
+            <p>Labour rates are derived from Government of Canada Job Bank wage data for automotive service technicians, mapped to your area using Statistics Canada geography. Parts and repair benchmarks improve over time as more Canadian quotes are submitted, the same way the US data does.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Why is the "total saved" figure only counting some of my quotes?</summary>
+          <div class="faq-answer">
+            <p>Totals are never mixed across currencies, because adding Canadian dollars to US dollars would produce a number that is not money. If you have scanned quotes in both countries, the running total reflects the currency of your most recent quote.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>The parts prices are in a different currency than my quote</summary>
+          <div class="faq-answer">
+            <p>Parts comparisons come from live marketplace listings, which occasionally report in a different currency than your quote. When that happens the app says so and skips the overcharge comparison rather than comparing two currencies as if they were one.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ PRICING ============ -->
+      <section class="faq-group" id="pricing">
+        <h2>Pricing &amp; purchases</h2>
+
+        <details class="faq-item">
+          <summary>How does pricing work?</summary>
+          <div class="faq-answer">
+            <p>Under The Hood offers two options: a single-scan purchase (<span data-price="single">$2.99</span>) or an annual unlimited subscription (<span data-price="annual">$19.99/year</span>). Each scan or subscription unlocks full access to the line-item breakdown, pricing data, and negotiation tips.</p>
+            <p id="currency-note" hidden>Prices shown in Canadian dollars are approximate. Your App Store shows the exact amount before you buy.</p>
+            <p>Prices listed here are in US dollars. Your App Store shows the amount in your local currency before you buy.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I restore a previous purchase?</summary>
+          <div class="faq-answer">
+            <p>Tap "Restore purchases" on the paywall screen. Your purchase is tied to your Apple ID, so restoring will re-activate access on any device signed in with the same Apple ID.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I cancel my subscription?</summary>
+          <div class="faq-answer">
+            <p>Open the Settings app on your iPhone, tap your name, then Subscriptions, then Under The Hood, then Cancel Subscription. Alternatively, visit <a href="https://apps.apple.com/account/subscriptions" target="_blank" rel="noopener">apple.com/account/subscriptions</a>.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ PRIVACY ============ -->
+      <section class="faq-group" id="privacy">
+        <h2>Privacy &amp; data</h2>
+
+        <details class="faq-item">
+          <summary>Does the app store my repair quotes?</summary>
+          <div class="faq-answer">
+            <p>Quote data is stored anonymously. We never collect your name, email, or any personally identifying information. Anonymous pricing data helps improve fair-price estimates over time. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do I need to create an account?</summary>
+          <div class="faq-answer">
+            <p>No account is required. Under The Hood uses anonymous sessions so you can use the app immediately without signing up.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ TROUBLESHOOTING ============ -->
+      <section class="faq-group" id="troubleshooting">
+        <h2>Troubleshooting</h2>
+
+        <details class="faq-item">
+          <summary>The app could not read my quote. What should I try?</summary>
+          <div class="faq-answer">
+            <p>Try retaking the photo in better lighting with the quote flat on a surface. Alternatively, use the "Type it in" tab to manually enter the line items. If the problem persists, contact us below.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>The price estimate seems off for my area</summary>
+          <div class="faq-answer">
+            <p>Fair price ranges are estimated from regional labour-rate data and improve over time as more quotes are submitted. Prices vary significantly by area, so treat the range as a guide rather than an exact figure. Make sure the ZIP or postal code you entered is correct, since that is what drives the local rate.</p>
+          </div>
+        </details>
+      </section>
+
+      <div class="contact-box">
+        <h2>Still need help?</h2>
+        <p>We typically respond within one business day.</p>
+        <a class="btn btn-primary" href="mailto:drew.spagna@gmail.com">Email support</a>
+      </div>
     </div>
   </div>
+</main>
 
-  <footer>
-    <p>© 2026 Under The Hood &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a></p>
-  </footer>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="" width="30" height="30">Under The Hood</a>
+      <p>A plain-English second opinion on any mechanic's repair quote.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">App Store</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>&copy; 2026 Under The Hood. All rights reserved.</span>
+    <span>Not affiliated with any repair shop, dealership, or parts retailer.</span>
+  </div>
+</footer>
 
 <script>
 /*
  * Shows Canadian visitors the CAD price instead of USD.
  *
  * The page ships with the USD figures in the HTML, so anyone without
- * JavaScript — and every crawler — reads correct default content. This only
+ * JavaScript, and every crawler, reads correct default content. This only
  * swaps them for visitors we can identify as Canadian.
  *
  * Filled 2026-07-29 from the live Canadian storefront listing
- * (apps.apple.com/ca/app/under-the-hood/id6781524500 → In-App Purchases):
+ * (apps.apple.com/ca/app/under-the-hood/id6781524500, In-App Purchases):
  * Single Scan $3.99, Annual Unlimited $24.99.
  *
  * NOTE: CAD annual ($24.99) is coincidentally the same figure as the old
  * incorrect USD annual price this page used to show. It is correct here.
- * Don't "fix" it back to $19.99 — that's the USD price, already in the HTML.
+ * Don't "fix" it back to $19.99, that's the USD price, already in the HTML.
  *
  * Apple re-tiers periodically for FX. If these drift from what the store
  * charges, empty them out rather than leaving a stale number on this page.
@@ -201,7 +271,7 @@ var CAD_PRICES = {
 
 (function () {
   // Timezone is the most reliable region signal available client-side.
-  // navigator.language is not — plenty of Canadians run en-US. No network
+  // navigator.language is not, plenty of Canadians run en-US. No network
   // call, no IP lookup, nothing to store, so nothing privacy-sensitive here.
   var CANADIAN_ZONES = [
     'America/St_Johns', 'America/Goose_Bay', 'America/Halifax', 'America/Glace_Bay',
@@ -218,7 +288,7 @@ var CAD_PRICES = {
       var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       return CANADIAN_ZONES.indexOf(tz) !== -1;
     } catch (e) {
-      return false; // Old browser — leave the USD default alone.
+      return false; // Old browser, leave the USD default alone.
     }
   }
 
@@ -237,6 +307,17 @@ var CAD_PRICES = {
     var note = document.getElementById('currency-note');
     if (note) note.hidden = false;
   }
+})();
+
+/* Open the target accordion when arriving via a #hash or a jump link. */
+(function () {
+  function openFromHash() {
+    var el = document.querySelector(location.hash || '#none');
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
 })();
 </script>
 

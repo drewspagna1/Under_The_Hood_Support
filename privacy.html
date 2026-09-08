@@ -4,108 +4,139 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Under The Hood</title>
+  <meta name="description" content="Under The Hood collects no name, email, or device identifier. Read what is processed and why.">
+  <meta name="theme-color" content="#08080A">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0A0A0A;
-      --surface: #1C1C1E;
-      --amber: #E8960C;
-      --amber-dim: rgba(232,150,12,0.12);
-      --text: #F0F0F2;
-      --text-sec: #9999A5;
-      --border: rgba(255,255,255,0.08);
+    .highlight-box {
+      background: var(--amber-dim);
+      border: 1px solid rgba(232,150,12,0.28);
+      border-radius: var(--r-lg);
+      padding: 1.5rem 1.6rem;
+      margin-bottom: 2.75rem;
     }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Helvetica Neue', sans-serif; line-height: 1.7; }
-    a { color: var(--amber); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); }
-    .nav-logo { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 1.1rem; font-weight: 700; color: var(--amber); letter-spacing: -0.3px; }
-    .nav-logo img { width: 30px; height: 30px; border-radius: 7px; display: block; flex-shrink: 0; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--text-sec); font-size: 0.9rem; }
-
-    .container { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
-    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .updated { color: var(--text-sec); font-size: 0.875rem; margin-bottom: 3rem; }
-
-    h2 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin: 2.5rem 0 0.75rem; }
-    p { font-size: 0.9375rem; color: var(--text-sec); margin-bottom: 1rem; }
-    ul { margin: 0 0 1rem 1.25rem; }
-    ul li { font-size: 0.9375rem; color: var(--text-sec); margin-bottom: 0.4rem; }
-
-    .highlight-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
-    .highlight-box p { margin: 0; }
-
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-sec); font-size: 0.825rem; }
-    footer a { color: var(--text-sec); }
-    footer a:hover { color: var(--amber); }
+    .highlight-box p { color: var(--text); font-size: 0.9375rem; margin: 0; }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="Under The Hood app icon" width="30" height="30">Under The Hood</a>
-    <div class="nav-links">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="" width="30" height="30">Under The Hood</a>
+    <nav class="nav-links" aria-label="Main">
       <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
       <a href="terms.html">Terms</a>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: August 2026</p>
-
-    <div class="highlight-box">
-      <p>Under The Hood does not collect your name, email address, device ID, or any information that identifies you. No account is required. The only data we process is content you choose to submit.</p>
-    </div>
-
-    <h2>Who we are</h2>
-    <p>Under The Hood is an iOS app developed by Under The Hood. Questions about this policy can be directed to <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a>.</p>
-
-    <h2>What we collect</h2>
-    <p>The only data Under The Hood processes is content you voluntarily submit — specifically:</p>
-    <ul>
-      <li><strong>Repair quote photos or text</strong> — the image or typed line items you submit for analysis.</li>
-      <li><strong>OBD-II codes or symptom descriptions</strong> — if you use the diagnosis feature.</li>
-      <li><strong>Photos of your dashboard, tires, or vehicle parts</strong> — if you use the warning light, tire wear, or part condition scan features.</li>
-      <li><strong>Vehicle info and ZIP or postal code</strong> — optional fields you can fill in to improve pricing accuracy. A ZIP or postal code identifies an area, not a person or an address.</li>
-    </ul>
-    <p>In Apple's App Store privacy categories this falls under <strong>Photos and Videos</strong> (quote images sent for analysis) and <strong>Other Usage Data</strong> (anonymous quote and pricing data). Neither is linked to your identity or used for tracking. We do not collect your name, email, phone number, Apple ID, device identifiers, location, or browsing history.</p>
-
-    <h2>How we use this data</h2>
-    <p>Submitted quote data is stored anonymously to provide the analysis result and, in aggregate, to improve fair-price estimates over time. We do not use your data for advertising and we do not sell it to third parties.</p>
-
-    <h2>Third-party services</h2>
-    <p>Under The Hood uses the following third-party services, each with their own privacy practices:</p>
-    <ul>
-      <li><strong>Google Gemini API</strong> — quote photos and text are sent to Google's Gemini API for analysis. Google's <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> applies.</li>
-      <li><strong>Supabase</strong> — anonymous quote data is stored in Supabase. Supabase's <a href="https://supabase.com/privacy" target="_blank">Privacy Policy</a> applies.</li>
-      <li><strong>RevenueCat</strong> — in-app purchase management. RevenueCat's <a href="https://www.revenuecat.com/privacy" target="_blank">Privacy Policy</a> applies.</li>
-    </ul>
-
-    <h2>Where data is processed</h2>
-    <p>Under The Hood's processing and storage providers are located in the United States. If you use the app from Canada or elsewhere outside the United States, the content you submit is transferred to and processed in the United States, where it may be accessible to courts, law enforcement, and national security authorities under that country's laws. Because submissions contain no personal identifiers, this transfer does not involve personal information that identifies you.</p>
-
-    <h2>Data retention</h2>
-    <p>Submitted quote data is retained anonymously to improve pricing accuracy over time. Because no personal identifiers are stored, we have no way to locate or delete a specific user's submissions. Contact us at <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a> with any questions.</p>
-
-    <h2>Children</h2>
-    <p>Under The Hood is not directed at children under 13 and we do not knowingly collect data from children.</p>
-
-    <h2>Changes to this policy</h2>
-    <p>We may update this policy from time to time. The "Last updated" date at the top of this page reflects when the most recent changes were made. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
-
-    <h2>Contact</h2>
-    <p>Questions or concerns about this policy? Email us at <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a>.</p>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">Get the app</a>
+    </nav>
   </div>
+</header>
 
-  <footer>
-    <p>© 2026 Under The Hood &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="support.html">Support</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a></p>
-  </footer>
+<main id="main">
+  <div class="prose">
+    <div class="doc-header">
+      <h1>Privacy Policy</h1>
+      <p class="subtitle">What Under The Hood processes, and what it never touches.</p>
+      <p class="doc-meta">Last updated: August 2026</p>
+    </div>
+
+    <div class="doc-body">
+      <div class="highlight-box">
+        <p>Under The Hood does not collect your name, email address, device ID, or any information that identifies you. No account is required. The only data we process is content you choose to submit.</p>
+      </div>
+
+      <nav class="toc" aria-label="On this page">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#who-we-are">Who we are</a></li>
+          <li><a href="#what-we-collect">What we collect</a></li>
+          <li><a href="#how-we-use">How we use this data</a></li>
+          <li><a href="#third-party">Third-party services</a></li>
+          <li><a href="#where-processed">Where data is processed</a></li>
+          <li><a href="#retention">Data retention</a></li>
+          <li><a href="#children">Children</a></li>
+          <li><a href="#changes">Changes to this policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="who-we-are">Who we are</h2>
+      <p>Under The Hood is an iOS app developed by Under The Hood. Questions about this policy can be directed to <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a>.</p>
+
+      <h2 id="what-we-collect">What we collect</h2>
+      <p>The only data Under The Hood processes is content you voluntarily submit — specifically:</p>
+      <ul>
+        <li><strong>Repair quote photos or text</strong> — the image or typed line items you submit for analysis.</li>
+        <li><strong>OBD-II codes or symptom descriptions</strong> — if you use the diagnosis feature.</li>
+        <li><strong>Photos of your dashboard, tires, or vehicle parts</strong> — if you use the warning light, tire wear, or part condition scan features.</li>
+        <li><strong>Vehicle info and ZIP or postal code</strong> — optional fields you can fill in to improve pricing accuracy. A ZIP or postal code identifies an area, not a person or an address.</li>
+      </ul>
+      <p>In Apple's App Store privacy categories this falls under <strong>Photos and Videos</strong> (quote images sent for analysis) and <strong>Other Usage Data</strong> (anonymous quote and pricing data). Neither is linked to your identity or used for tracking. We do not collect your name, email, phone number, Apple ID, device identifiers, location, or browsing history.</p>
+
+      <h2 id="how-we-use">How we use this data</h2>
+      <p>Submitted quote data is stored anonymously to provide the analysis result and, in aggregate, to improve fair-price estimates over time. We do not use your data for advertising and we do not sell it to third parties.</p>
+
+      <h2 id="third-party">Third-party services</h2>
+      <p>Under The Hood uses the following third-party services, each with their own privacy practices:</p>
+      <ul>
+        <li><strong>Google Gemini API</strong> — quote photos and text are sent to Google's Gemini API for analysis. Google's <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> applies.</li>
+        <li><strong>Supabase</strong> — anonymous quote data is stored in Supabase. Supabase's <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> applies.</li>
+        <li><strong>RevenueCat</strong> — in-app purchase management. RevenueCat's <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> applies.</li>
+      </ul>
+
+      <h2 id="where-processed">Where data is processed</h2>
+      <p>Under The Hood's processing and storage providers are located in the United States. If you use the app from Canada or elsewhere outside the United States, the content you submit is transferred to and processed in the United States, where it may be accessible to courts, law enforcement, and national security authorities under that country's laws. Because submissions contain no personal identifiers, this transfer does not involve personal information that identifies you.</p>
+
+      <h2 id="retention">Data retention</h2>
+      <p>Submitted quote data is retained anonymously to improve pricing accuracy over time. Because no personal identifiers are stored, we have no way to locate or delete a specific user's submissions. Contact us at <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a> with any questions.</p>
+
+      <h2 id="children">Children</h2>
+      <p>Under The Hood is not directed at children under 13 and we do not knowingly collect data from children.</p>
+
+      <h2 id="changes">Changes to this policy</h2>
+      <p>We may update this policy from time to time. The "Last updated" date at the top of this page reflects when the most recent changes were made. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+      <h2 id="contact">Contact</h2>
+      <p>Questions or concerns about this policy? Email us at <a href="mailto:drew.spagna@gmail.com">drew.spagna@gmail.com</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><img src="assets/icon-180.png" alt="" width="30" height="30">Under The Hood</a>
+      <p>A plain-English second opinion on any mechanic's repair quote.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a href="https://apps.apple.com/app/id6781524500" target="_blank" rel="noopener">App Store</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>&copy; 2026 Under The Hood. All rights reserved.</span>
+    <span>Not affiliated with any repair shop, dealership, or parts retailer.</span>
+  </div>
+</footer>
 
 </body>
 </html>
